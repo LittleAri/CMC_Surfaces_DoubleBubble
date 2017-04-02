@@ -1,0 +1,1105 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[top=0.7in, bottom=0.7in, left=0.9in, right=0.9in]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{varioref}
+\usepackage[plainpages=false]{hyperref}
+\usepackage{cleveref}
+\usepackage{enumitem}   
+\usepackage{graphicx,wrapfig,lipsum}
+
+\usepackage[xindy,toc]{glossaries}
+\usepackage{color}
+%\usepackage{courier}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{subcaption}
+\usepackage{bussproofs}
+\usepackage{stmaryrd}
+\usepackage{faktor}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{epigraph}
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning,shapes,arrows,backgrounds}
+\usepackage{pgf}
+%\usepackage{pgf-umlcd}
+
+\usepackage{dot2texi}
+% \usetikzlibrary{pgfplots.groupplots}
+%\usepgfplotslibrary{external}
+%\tikzexternalize[shell escape=-enable-write18]
+%\pgfplotsset{width=7cm}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+% http://stackoverflow.com/questions/741985/latex-source-code-listing-like-in-professional-books
+\lstset{
+	basicstyle=\footnotesize\ttfamily, % Standardschrift
+	numbers=left,               % Ort der Zeilennummern
+	numberstyle=\tiny,          % Stil der Zeilennummern
+%stepnumber=2,               % Abstand zwischen den Zeilennummern
+	numbersep=5pt,              % Abstand der Nummern zum Text
+	tabsize=2,                  % Groesse von Tabs
+	extendedchars=true,         %
+	breaklines=true,            % Zeilen werden Umgebrochen
+	frame=b,         
+%        keywordstyle=[1]\textbf,    % Stil der Keywords
+%        keywordstyle=[2]\textbf,    %
+%        keywordstyle=[3]\textbf,    %
+%        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	% stringstyle=\color{white}\ttfamily, % Farbe der String
+	showspaces=false,           % Leerzeichen anzeigen ?
+	showtabs=false,             % Tabs anzeigen ?
+	xleftmargin=17pt,
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framexbottommargin=4pt,
+%backgroundcolor=\color{lightgray},
+	showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+ }
+%\DeclareCaptionFont{blue}{\color{blue}} 
+
+%\captionsetup[lstlisting]{singlelinecheck=false, labelfont={blue}, textfont={blue}}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+\newcommand{\question}[1]{\begin{enumerate}
+\item \textbf{#1}
+\end{enumerate}}
+
+\newcommand{\questionres}[1]{\begin{enumerate}[resume]
+\item \textbf{#1}
+\end{enumerate}}
+
+\newcommand{\inlinecode}{\texttt}
+
+\crefname{lstlisting}{listing}{listings}
+\Crefname{lstlisting}{Listing}{Listings}
+\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\lhead{Arianna Salili}
+\rhead{CMC Surfaces \& Double Bubble Theorem}
+%\chead{Wumpus-World}
+
+\begin{document}
+
+% Title page
+\title{Constant Mean Curvature Surfaces and the Double Bubble Theorem}
+\author{ Arianna Salili \\ Supervised by Dr Giuseppe Tinaglia \\ King's College London}
+\date{Spring 2017}
+
+
+\maketitle
+%\setcounter{chapter}{-1}
+
+\chapter*{ }
+
+\section*{Abstract}
+
+Consider a sphere and a cube that both have equal volume. Which of these has a lower surface area? Which surface, if any, uses the least surface area to enclose a volume? This is the focus of this project: area-minimizing, volume-preserving surfaces.\par 
+\hspace{-0.66cm}An example of these surfaces can be found in nature. Soap bubbles take the shape of least area to contain the volume of air within. We will see that area-minimizing, volume-preserving surfaces such as our soap bubble, have constant mean curvature everywhere. This fact allows us to outline their shape. By using the Alexandrov Theorem, we will see that certain surfaces with constant mean curvature must be spheres. And  by looking at the Space Isoperimetric Inequality, we will see the relation between surface area and volume. Both of these theorems enable us to conclude that the sphere is the least surface area way of enclosing a volume. Finally we study the least surface area way of containing and separating two volumes, which leads us to the Double Bubble Theorem. We define the properties of the area-minimizing, volume-preserving double bubble and present ideas for the proof of the well-known theorem.
+
+
+\chapter*{ }
+\section*{Acknowledgements}
+
+Firstly, I would like to thank my supervisor, Dr Giuseppe Tinaglia for allowing me to focus my project on the topics I enjoyed; for all his patience and extreme, undeserved guidance. Thank you for helping me to fall in love with geometry and all its beauty. I would like to thank the rest of the academic staff at King's College London who too have helped me develop my mathematical knowledge and have unknowingly inspired me. I would also like to thank Professor Blancas from the University of Almeria. His talk on the Geometry of Soap Bubbles in the spring of 2016 was one of the inspirations for this project. \newline 
+
+\hspace{-0.66cm}Next I want to express my immense gratitude to my mother and father for nurturing my love for mathematics. And thank you to Benjamin, for the constant support.\newline 
+\hspace{-0.66cm}Finally I would like to thank Mr Jennings, without whom I wouldn't be here.
+
+
+\tableofcontents
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{example}[theorem]{Example}
+
+\chapter{Introduction}
+
+
+
+\epigraph{The book of nature is written in the characters of geometry.}{\textit{Galileo Galilei}}
+
+\hspace{-0.66cm}Nature provides us with some of the most beautiful patterns. For centuries now, these natural geometries have inspired a wealth of mathematical definitions, theorems et al. These curiosities lead to intriguing questions and answers. The results of finding nature's analogues with mathematics (or the other way around) is engaging. Take the dragonfly for example. The wing structure of the dragonfly is structured in a way that enables us to mimic it using soap films. And the study of soap films brings us to the one of the most significant set of laws relating to patterns in nature: \textbf{Plateau's Laws}.
+
+\paragraph{Plateau's Laws for Soap Films:}
+
+\begin{enumerate}[label=(\roman*)]
+\item Soap films are made of entirely \textbf{smooth} surfaces.
+\item The \textbf{mean curvature} of a portion of a soap film is everywhere constant on any point on the same piece of soap film.
+\item Soap films always meet in threes along an edge called the \textbf{Plateau Border} and they do so at an angle of 120$^{\circ}$ .
+\item Plateau borders meet in fours at a vertex, and they do so at $arccos(\frac{-1}{3}) \approx109^{\circ} $ (the tetrahedral angle).
+\end{enumerate}
+
+\hspace{-0.66cm}The physicist Joseph Plateau derived these laws experimentally in the nineteenth century.\par
+\hspace{-0.66cm}For centuries, soap films and soap bubbles have been studied extensively. The mathematician \textit{Johann Bernoulli} (1667 - 1748) formally taught us that the laminae that appear when combining a wire frame with some soap solution, can be called \textbf{laminae of minimal potential energy}. Furthermore, because \textbf{potential energy} is proportional to area, we can see that these laminae are of least area. Note that in this project, when we refer to \textit{soap films} we will mean soap films that span a given frame.
+Soap bubbles also follow a similar rule. As soon as a bubble is blown, surface tension makes the soap bubble assume the smallest surface area that it can. Consequently, we learn that soap bubbles are indeed the least surface area way of containing a volume. This seemingly simple fact, paves the way for this project.\par
+
+\section{Outline}
+
+Many mathematicians have been trying to create the optimal mathematical model to analyse soap films and soap bubbles. The second half of the twentieth century saw great progress in this matter. In 1965, Frederick Almgren introduced us to \textit{Verifold Geometry}, a branch he named inside geometric measure theory. More on this can be found in \cite{verifold}. Thereafter, Jean Taylor used this to prove certain properties of a subset of area-minimizing, volume-preserving surfaces. This was seen as a generalised proof of Plateau's Laws for soap films, \cite{taylor}.\newline 
+
+In the fist section of this project, we want to show that soap bubbles are \textit{perfectly round}. To do this, we will use the fact that soap bubbles are area-minimizing, volume-preserving whilst making the assumption that soap bubbles in nature follow the same laws as surfaces defined in mathematics.
+
+\begin{theorem}[Space Isoperimetric Inequality]
+Let $S$ be a \textbf{compact}, \textbf{embedded}, \textbf{connected} surface. Then $A(S)^{3} \geq 36\pi(Vol\Omega)^{2}$, where $\Omega$ is its \textbf{inner domain}.
+\end{theorem}
+
+\begin{definition}
+A surface is \textbf{embedded} if it does not have any self intersections. 
+\end{definition}
+
+Here, $A(S)$, is the area of our surface $S$ and $Vol\Omega$ is the volume inside our surface. In our case, this is the volume of air that gets trapped inside the soap bubble when it is blown. By using the \textbf{Space Isoperimetric Inequality}, we will see that if equality occurs, we get the relation between the least area of a surface and its volume.\par 
+On the way, we will explore different properties of area-minimizing, volume-preserving surfaces, in particular regarding their \textbf{curvature}. This will lead us to the following theorem:
+
+\begin{theorem}[Alexandrov's Theorem]
+If a compact, embedded, connected surface has constant mean curvature, then it is a sphere.
+\end{theorem}
+
+The \textbf{Alexandrov Theorem} will allow us to determine the shape of the area-minimizing, volume-preserving bubble. It will also be used to provide a sketch proof of the Space Isoperimetric Inequality. \newline
+
+After we have seen the least surface area way of containing a given volume, why not extend this to two given volumes? This brings us to the \textit{Double Bubble Theorem}.
+
+\begin{theorem}[Double Bubble Theorem]
+In $\mathbb{R}^{3}$, the unique surface area minimizing, volume-preserving double bubble that contains the partitioned volumes $V_{1},V_{2}$ inside the regions $R_{1},R_{2}$ is the standard double bubble.
+\end{theorem}
+
+\begin{center}
+\includegraphics[scale=0.65]{stnd_db2.jpg}
+\captionof{figure}{A standard double bubble, copyright John M. Sullivan.} 
+\end{center}
+
+The standard double bubble, as pictured in Figure 1.1, involves three sub-surfaces: the two containing the regions $R_{1}, R_{2}$ and an additional spherical cap, which separates the other two regions. 
+In this project, we will define this area-minimizing, volume-preserving double bubble and show that there exists such a standard double bubble that minimizes surface area. Plateau's Laws will also play a part in this. Thus in this final section, the mathematical model we will use for our soap double bubble is the one used by Taylor\footnote{Taylor models the soap films and soap bubbles using the concept of \textbf{minimal sets} in geometric measure theory, introduced by Almgren.} in \cite{taylor}.
+
+
+\chapter{Constant Mean Curvature Surfaces}
+
+
+From Plateau's Laws, we saw that regions of soap films have constant mean curvature everywhere. However, in this chapter we shall prove that soap bubbles have constant mean curvature without turning to Plateau's Laws. We shall study the curvature of surfaces and look at various theorems that involve the mean curvature. We shall also be introduced to a special subset of surfaces with constant mean curvature.
+
+\section{Curvature}
+
+What differentiates a \textit{curve} from a \textit{line}? Or is a so-called line just a \textit{straight} curve? Informally, this is how the concept of curvature came about.\newline
+
+\hspace{-0.66cm}We will start by defining the curvatures of two things. The curvature of a line is zero and the curvature of a circle as $\frac{1}{r}$ where $r$ is the radius of the circle. Thus, as $r$ increases, the curvature of the circle tends to zero.\newline 
+
+Now let's look at the curvatures on curves. We take a point $t$ on a smooth curve $\alpha$ in $\mathbb{R}^{2}$. Now let's draw the \textbf{tangent line} and \textbf{tangent circle} of that point. The curvature of $\alpha$ at $t$ can be defined as the curvature of the tangent circle at $t$.
+
+\begin{center}
+\includegraphics[scale=0.8]{Curvature2.png}
+\captionof{figure}{A curve in $\mathbb{R}^{2}$ with tangent circles at certain points and tangent lines.}
+\end{center}
+
+\hspace{-0.66cm}The tangent circles we are talking about are often called \textbf{osculating circles} as they are essentially \textit{"kissing"} the tangent line. These osculating circles are the closest tangent circles to the curve subset at that point i.e the \textit{closest} circles to estimate that curve. Also depicted in Figure 2.1, are the \textbf{tangent vectors} that lie on the tangent line and a \textbf{unit normal}.\newline
+
+\hspace{-0.66cm}In this project, by \textit{surfaces}, we will always mean surfaces in $\mathbb{R}^{3}$. Thus imagine now that we are sitting on a surface. Here, defining the curvature of a point on the surface is quite similar to before. A \textbf{normal vector} of a point $p$ on a surface $S$ in $\mathbb{R}^{3}$ is the normal to the \textbf{tangent plane} at $p$ and is denoted by $N$. A \textbf{normal plane} at a point $p$ on a surface $S$ is a plane that contains this normal vector. These normal planes then \textit{cut} the surface in a \textbf{plane curve} which is often called a \textbf{normal section}. Then, by simply looking at the normal sections, we can go back to the definition of a curvature of a point on a curve.
+
+\begin{center}\includegraphics[scale=0.25]{plane-curvature.png}
+\captionof{figure}{Image copyright of Richard J. Lisle in \cite{curve}.}
+\end{center}
+
+The maximum and minimum values for the curvature of a point on a plane curve of a surface are denoted as $\kappa_{1}, \kappa_{2}$. These are called the \textbf{principle curvatures}. And their sign depends on our choice of normal. If our curve is turning towards our normal vector, the sign of the curvature is negative. If it is curving away from the normal, then the sign is positive.\newline
+
+Now we reach two important definitions that allow us to describe the curvature of surfaces at different points.
+
+\begin{definition}
+The \textbf{Gaussian curvature} of a surface $S$ at a point $p$ is the product of the principle curvatures at $p$ i.e. $K = \kappa_{1}\kappa_{2}$.
+\end{definition}
+
+\begin{definition}
+The mean curvature of a surface $S$ at a point $p$ is the mean of the principle curvatures at $p$ i.e. $H = \frac{1}{2}(\kappa_{1}+\kappa_{2})$.
+\end{definition}
+
+\begin{remark}
+From the above definitions we can see that the principle curvatures are simply $H\pm \sqrt{H^{2}-K}$.
+\end{remark}
+
+\paragraph{Proof} $K = \kappa_{1}\kappa_{2} \implies \frac{K}{\kappa_{2}} = \kappa_{1}. H = \frac{1}{2}(\kappa_{1}+\kappa_{2}) \implies 2H - \kappa_{2} = \kappa_{1} = \frac{K}{\kappa_{2}} \therefore \kappa_{i}^{2} - 2H\kappa_{i} + K = 0 \implies \kappa_{i} = \frac{2H \pm \sqrt{4H^{2}-4K}}{2} = H \pm \sqrt{H^{2}-K}$. \hfill $\Box$
+
+\begin{definition}
+An \textbf{umbilical point} on a surface is a point where the principle curvatures are equal.
+\end{definition}
+
+\section{Divergence Theorem and Diffeomorphisms}
+
+\begin{definition}
+The \textbf{Gauss Map} $N$, of a surface $S$, is a function that maps the points of a surface to their unit normal vectors. $N: S \rightarrow \mathbb{S}^{2}$ thus the Gauss Map, maps our surface to the unit sphere, $\mathbb{S}^{2}$.
+\end{definition}
+
+Let's start by noting that \textbf{flux} can be defined as the quantity of a field that passes through a given surface. Meanwhile, the \textbf{divergence} can be seen as the quantity of a field's \textbf{source} at each point. Thus the flux can be seen as the integral of a \textbf{vector field} over a surface. This can be denoted like the following:
+
+\begin{equation}
+\int_{S} <V,N>
+\end{equation}
+
+\hspace{-0.8cm} Where $V$ is our \textbf{differentiable} vector field,  $S$ our surface and $N$ our \textbf{inner unit normal field}. Finally, if we let $V = (v_{1},v_{2},v_{3})$ then the divergence of $V$ is simply the scalar function:
+
+\begin{equation}
+\nabla . V = \frac{\partial v_{1}}{\partial x} + \frac{\partial v_{2}}{\partial y} + \frac{\partial v_{3}}{\partial z}
+\end{equation}
+
+\begin{theorem}[Divergence Theorem]
+If $S$ is a compact, connected surface and $X:\bar{\Omega} \rightarrow \mathbb{R}^{3}$ a differentiable vector field then $\int_{\Omega} div X = -\int_{S} <X,N>$ where $\Omega$ is the inner domain of $S$ and $N$ the gauss map.
+\end{theorem}
+
+Now we know that the volume can be written as:
+
+\[
+Vol\Omega = \int_{\Omega} 1
+\]
+
+Let $X$ be an identity mapping such that $X(p) = p$ $\forall p$ $\in$ $\bar{\Omega}$. Therefore by the \textbf{Divergence Theorem} we see that:
+
+\begin{equation}
+\int_{\Omega} div X = \int_{\Omega} 3 = 3 \times Vol \Omega = -\int_{S}<p,N(p)>
+\end{equation}
+
+\begin{theorem}[Divergence Theorem for Surfaces]
+Let $S$ be a compact surface. Then $\int_{S} div V = -2\int_{S} <V,N>H$. Where $V$ is a differentiable vector field on S such that $V : S \rightarrow \mathbb{R}^{3}$ and $H$ is the mean curvature.
+\end{theorem}
+
+\hspace{-0.66cm}This theorem was taken from Montiel \& Ros in \cite{montiel}. Note that here we take the integral of the divergence over the surface $S$ and not inner domain of the surface $\Omega$, unlike theorem 2.6.
+
+\begin{definition}
+A \textbf{diffeomorphism} is a differentiable mapping of \textbf{manifolds} where the inverse is also differentiable.
+\end{definition}
+
+\begin{theorem}[Change of Variables Formula]
+Let $\phi: R_{1} \rightarrow R_{2}$ be a diffeomorphism between regions of two \textbf{orientable} surfaces and let $f:R_{2} \rightarrow \mathbb{R}$ be an integrable function. Then $\int_{R_{2}} f = \int_{R_{1}} (f \circ \phi ) |Jac \phi |$ where $Jac \phi$ represents the \textbf{Jacobian} and the right hand side integrable.
+\end{theorem}
+
+The above theorem will be used in the proofs in the following section.
+
+\section{First Variation Formulas}
+
+\begin{center}\includegraphics[scale=0.65]{undaloid.png}
+\captionof{figure}{This figure shows a type of CMC Surface. Namely, an \textbf{unduloid}.}
+\end{center}
+
+A \textbf{CMC Surface} is simply a surface that has constant mean curvature all over it.\newline
+\hspace{-0.66cm}In the study of CMC Surfaces, mathematicians have come across a plethora of interesting relations, theorems and examples. Some of these theorems we shall soon study. But first we should ask ourselves: what actually is a surface with constant mean curvature? We know that their mean curvature is constant everywhere but what does that actually show?\newline
+
+\hspace{-0.75cm} \textbf{Compact surfaces} in the Euclidean Space have a special neighbourhood called the \textbf{Tubular Neighbourhood} pictured below.\newline
+
+\begin{center}\includegraphics[scale=0.85]{db_tn.png}
+\captionof{figure}{A surface $S$ with its tubular neighbourhood $N_{\delta}(S)$ }
+\end{center}
+
+\hspace{-0.66cm}This neighbourhood is the union of all normal segments to the \textbf{orientable} surface with radius $\delta > 0$.\newline
+We want to define a function that takes a point on our surface and maps it onto a point on the normal segment of that point. Then the family of surfaces that we obtain when considering the different points on a tubular neighbourhood, shall be called the \textbf{variation} of our surface, $S$.
+
+\begin{definition}
+For any differentiable function $f:S \rightarrow \mathbb{R}$ with $|t| < \delta$, choose $\epsilon > 0$ such that $N_{\epsilon}(S)$ is a tubular neighbourhood and $tf(S) \subset (-\epsilon, \epsilon)$. The 1-parameter family of variations of $S$ are the surfaces $S_{t}(f) = \{ x \in N_{\epsilon}(S) | x = p + tf(p)N(p), p \in S, |t| < \delta \}$.
+\end{definition}
+
+\hspace{-0.66cm}Now let's take $\Lambda$ to be the set of surfaces $S$ that \textbf{enclose} a volume $V$. We'll define a function $A$ like so: $A(S) = Area(S)$ where $A: \Lambda \rightarrow \mathbb{R}$.\par 
+Thus it is clear that, if we want to look at the least surface area possible for containing a given volume, we will need to find the \textbf{critical points} or \textbf{stationary points} of $A$. 
+
+\begin{theorem}[First Variation of Area]
+Let $S_{t}(f)$ be the \textbf{variation} of the surface $S$ where $|t| < \delta$ for some $\delta > 0$ and $f: S \rightarrow \mathbb{R}$. Then $\frac{d}{dt}\bigg|_{t=0} A(S_{t}(f)) = -2 \int_{S} f(p)H(p)$
+\end{theorem}
+
+\begin{theorem}[First Variation of Volume]
+Let $\Omega_{t}(f)$ be the inner domain determined by the compact surface $S_{t}(f)$. Then $\frac{d}{dt}\bigg|_{t=0} Vol\Omega_{t}(f) = - \int_{S} f(p)
+$ 
+\end{theorem}
+
+\textit{Note that the following proofs follow Montiel \& Ros', see \cite{montiel}.}
+
+\paragraph{Proof of First Variation of Area:}
+
+There is a diffeomorphism $\phi_{t}$, from our surface $S$, to each $S_{t}(f)$ $\forall p$ $\in$ $S$. 
+
+\begin{equation}
+\phi_{t}(p) = p + tf(p)N(p)
+\end{equation}
+
+By the \textbf{Change of Variables Formula} in 2.9, we know that the following holds:
+
+\begin{equation}
+\int_{S_{t}(f)} f = \int_{S} (f \circ \phi_{t})|Jac \phi_{t}|
+\end{equation}
+
+From the definition of the Jacobian we know that $|Jac \phi_{t}| (p) = |(d\phi_{t})_{p} (e_{1}) \wedge (d\phi_{t})_{p} (e_{2}) |$. $N(p)$ is a unit vector \textbf{orthogonal} to our surface at $p \implies N'(p)(e_{i}) = \frac{1}{r}e_{i} = -k_{i}e_{i}$. Thus we we get the following:
+
+\begin{equation}
+(d\phi_{t})_{p})(e_{i}) = (1-tf(p)\kappa_{i} + tf'(p)N(p))e_{i}
+\end{equation}
+
+Therefore, by combining (2.5) and (2.6), we see that
+
+\[
+A(S_{t}(f)) = \int_{S_{t}(f)} 1 = \int_{S} |Jac \phi_{t}| = \int_{S} (1-tf(p)\kappa_{1} + tf'(p)N(p))(1-tf(p)\kappa_{2} + tf'(p)N(p))
+\]
+
+Note that $(df)_{p}(v) = <( \nabla f)(p),v>$ where $v$ $\in$ $T_{p}S$, the \textbf{tangent plane} of $S$ at $p$. Since $\nabla f$ represents the the vector field of tangent vectors, we can see that
+\begin{equation}
+<(df)_{p},N(p)> = <(\nabla f)(p), N(p)> 
+\end{equation} 
+And since $N(p)$ is a unit normal to S at p, perpendicular to the tangent vector, (2.7) vanishes.
+
+Then by differentiating the Jacobian with respect to t and by noting that $|N(p)| = 1$, we get:
+
+\[
+\frac{d}{dt}\bigg|_{t=0} |Jac \phi_{t}| = (-f(p)\kappa_{1})(1-tf(p)\kappa_{2}) + (-f(p)\kappa_{2})(1-tf(p)\kappa_{1})\bigg|_{t=0} = -f(p)(\kappa_{1} + \kappa_{2}) = -2f(p)H(p)
+\]
+
+So finally we can see that
+
+\[
+\frac{d}{dt}\bigg|_{t=0} A(S_{t}(f)) = \int_{S} \frac{d}{dt}\bigg|_{t=0} |Jac \phi_{t}| = \int_{S} -2f(p)H(p)
+\] \hfill $\Box$
+
+\paragraph{Proof of First Variation of Volume:}
+
+Here, $H=H(p)$\newline
+
+From equation (2.3) we can write
+
+\[
+Vol \Omega_{t}(f) = -\frac{1}{3}\int_{S_{t}} <p,N_{t}(p)>
+\]
+
+And by Theorem 2.9, we know that:
+
+\[
+Vol \Omega_{t}(f) = - \frac{1}{3} \int_{S} (<p,N_{t}> \circ \phi_{t}) |Jac \phi_{t}| = - \frac{1}{3} \int_{S} <\phi_{t},N_{t}\circ \phi_{t}> |Jac \phi_{t}| 
+\]
+
+where $\phi_{t}$ is the diffeomorphism defined in (2.4).\newline
+
+From the definition of the normal, we can write the following:
+
+\[
+(N_{t} \circ \phi_{t})(p) = \frac{(d\phi_{t})_{p} (e_{1}) \wedge (d\phi_{t})_{p} (e_{2})}{|(d\phi_{t})_{p} (e_{1}) \wedge (d\phi_{t})_{p} (e_{2}) |} = \frac{(d\phi_{t})_{p} (e_{1}) \wedge (d\phi_{t})_{p} (e_{2})}{|Jac \phi_{t}| (p)}
+\]
+
+And by using (2.6), we can write the following:
+
+\[
+(1-tf(p)\kappa_{1} + t\nabla f N(p)) \wedge (1-tf(p)\kappa_{2} + t\nabla f N(p)) = (1-2tf(p)H)N(p) - t\nabla f + t^{2}U(p,t)
+\]
+
+where $U(p,t)$ is a differentiable function.  Therefore we now get
+
+\[
+3vol \Omega_{t}(f) = - \int_{S} <p + tf(p)N(p), (1-2tf(p)H)N(p) - t\nabla f + t^{2}U(p,t)> 
+\]
+\[
+= -\int_{S} <p,(1-2tf(p)H)N(p)> - <p,t\nabla f> + t^{2}U^{*}(p,t) + <tf(p)N(p),N(p)>
+\]
+
+where 
+\[U^{*}(p,t) = <p,U(p,t)>-<f(p)N(p),\nabla f>+<tf(p)N(p),U(p,t)>-<f(p)N(p), 2f(p)HN(p)>\] is a differentiable function.\newline 
+
+Thus by differentiating the volume with respect to $t$, we obtain:
+
+\[\frac{d}{dt}\bigg|_{t=0} Vol\Omega_{t}(f) =
+- \frac{1}{3}\int_{S} <p,-2f(p)HN(p)> - <p,\nabla f> + f(p)
+\]
+\begin{equation}
+= - \frac{1}{3}\int_{S} -2<pf(p), N(p)>H - p\nabla f + f(p)
+\end{equation}
+
+By defining $V(p) = pf(p)$ as a vector field, we can use the \textbf{Divergence Theorem for Surfaces} to equate (2.8) to:
+
+\[
+-\frac{1}{3}\int_{S} div V(p) - p\nabla f + f(p) = -\frac{1}{3}\int_{S} p\nabla f + 2f(p) - p\nabla f + f(p)
+\]
+
+\vspace{3cm}
+
+Therefore we get:
+
+\[
+\frac{d}{dt}\bigg|_{t=0} Vol\Omega_{t}(f) = - \int_{S} f(p)
+\] \hfill $\Box$
+
+\hspace{-0.66cm}Now let's go back to the question of finding the surface with the least surface area, given a volume. In order for a surface $S$ $\in$ $\Lambda$ to be the one with the least surface area, it needs to be true that if $\frac{d}{dt}\bigg|_{t=0} Vol \Omega_{t}(f) = 0$ then $\frac{d}{dt}\bigg|_{t=0} A(S_{t}(f)) = 0$ $\forall$ $f$. This implies that $H$, the mean curvature, must be constant. This leads to the following lemma:
+
+\begin{lemma}
+If a surface is the least surface area way of enclosing a given volume, then the mean curvature of the surface must be constant everywhere.
+\end{lemma}
+
+We know that soap bubbles take the shape of least area to contain the volume of air that gets trapped inside them. Thus Lemma 2.13 implies that our soap bubbles has constant mean curvature everywhere. This complements the second law from Plateau's Laws for Soap Films which told us that regions of soap films have constant mean curvature.
+
+\section{Minimal Surfaces}
+
+Soap films are laminae of minimal area. This means that whatever frame it spans, it will take up the least surface area to do this. Thus  soap films often appear at the centre of solutions to other popular problems in geometry\footnote{For example, soap films can be used to find the minimal area between different segments. Other examples of where soap films can be found in solutions to geometric problems can be found in \cite{soap}.}.
+
+\begin{theorem}[Young-Laplace Formula]
+If $p$ is the pressure difference between the sides of the soap film, $T$ the tension and $H$ the mean curvature, then $p = TH$.
+\end{theorem}
+
+Though we will not study the physics of soap films in this project, it is important to know that if a piece of a soap film is spanned by a frame, then the pressure on both sides of the soap film are equal. Then since we know that the tension is not zero, by the \textbf{Young-Laplace Formula} this implies that these soap films have zero mean curvature everywhere. 
+
+\begin{definition}
+A surface is a \textbf{minimal surface}, if $H$ is zero everywhere.
+\end{definition}
+
+\vspace{2cm}
+
+\begin{center}
+\includegraphics[scale=0.65]{helicoid.png}
+\hspace{1cm}
+\includegraphics[scale=0.65]{Enepper.png}
+\vspace{-1cm}
+\begin{multicols}{2}
+\captionof{figure}{A \textbf{Helicoid} is an example of a minimal surface.} 
+\vspace{1cm}
+\captionof{figure}{This surface is the \textbf{Enepper Minimal Surface}.}
+\end{multicols}
+\end{center}
+
+\hspace{-0.66cm}So why are soap films minimal surfaces but not soap bubbles? \newline
+
+When studying soap bubbles, we see that there is less pressure on the inner side of the bubble than the outer side. Therefore $H$ cannot be zero. For this reason soap bubbles are not minimal surfaces.\newline
+
+\chapter{Isoperimetric Inequality}
+
+When a frame is dipped into a soap solution and then blown, a soap bubble will be formed.  If you watch a slow motion clip of a bubble being blown, it will be clear to see that once the solution has left the frame, a \textit{perfectly round} bubble does not appear instantly.
+The bubble undergoes a natural procedure of flows before becoming the well known, round soap bubble. In this chapter, we will follow a journey of the soap bubble until it becomes the surface of least area. Thus by the end of this chapter, following on from the Space Isoperimetric Inequality, we will show that our soap bubble, is indeed a sphere.
+
+\begin{theorem}[Space Isoperimetric Inequality]
+Let $S$ be a compact, embedded, connected surface. Then $A(S)^{3} \geq 36\pi(Vol\Omega)^{2}$, where $\Omega$ is its inner domain.
+\end{theorem}
+
+\hspace{-0.66cm}So let's start with a simple example to test this theorem. Take a unit cube in $\mathbb{R}^{3}$. $A(S) = 6$ and $Vol\Omega = 1$. Then $A(S)^{3} = 6^{3} = 216$. This is clearly greater than $36 \times \pi \times 1 \approx 113$.\newline
+
+\hspace{-0.66cm}In this paper, there is a great emphasis on the mean curvature of soap bubbles. From answering the question as to why they're \textit{round} to proving that they are indeed the least surface area way of containing a volume; the curvature will play a big part. In the next section, we shall take a look at two theorems that involve the mean curvature. After we have done this, we will prove the \textbf{Alexandrov Theorem}. This theorem shows us that certain surfaces with constant mean curvature will always be a sphere. And then we will be able to complete our sketch proof of the \textbf{Space Isoperimetric Inequality}.
+
+
+\section{Minkowski Formulas and Heintze-Karcher}
+
+\paragraph{Note:} In this section, all our surfaces will be embedded surfaces.
+
+\begin{theorem}[First Minkowski Formula]
+Let $S$ be a compact surface and $N$ its inner Gauss map. Then $\int_{S} (1+ <p,N(p)>H(p)) dp = 0$ where H is the mean curvature.
+\end{theorem}
+
+\paragraph{Proof} From the Divergence Theorem for Surfaces, we have that $\int_{S} div V = -2\int_{S} <V,N>H$. Recalling our definition of a surface as a 2-dimensional manifold, we can assume that our vector field appoints a pair of real numbers to each point in $S$. Let $V(p) = p$ $\forall$  $p  \in S$. Then we can see that $div V = \nabla . V = \frac{\partial v_{1}}{\partial x} + \frac{\partial v_{2}}{\partial y} + \frac{\partial v_{3}}{\partial z} = 1 + 1 + 0 = 2$. So $\int_{S} 2 + 2\int_{S} <V,N>H$ = $\int_{S} 2 + 2<V,N>H = 2\int_{S} 1 + 1<V,N>H = 0 $. Thus $\int_{S} 1 + 1<p,N>H = 0$. \hfill $\Box$
+ 
+\begin{theorem}[Heintze-Karcher Inequality]
+Let $S$ be a compact surface with positive mean curvature everywhere. Then $Vol\Omega \leq \frac{1}{3} \int_{S} \frac{1}{H(p)}dp$ where $\Omega$ is the inner domain determined by $S$.
+\end{theorem}
+
+The \textbf{Heintze-Karcher Inequality} is highly important in the proof the Alexandrov Theorem. Before we go on to prove this theorem, we shall introduce two more theorems as well as a special function of a surface.
+
+\begin{definition}
+The \textbf{characteristic function} of a surface, $S$ is $\chi_{S}(x) =    
+\begin{cases}
+      0, & \text{if}\ x \notin S \\
+      1, & \text{else}
+\end{cases}$
+\end{definition}
+
+\paragraph{Note:} The proofs for the following two theorems will not be provided here but can be found in (\cite{spivak}, Theorem 3.10) and (\cite{montiel}, Theorem 5.27), respectively.
+
+\begin{theorem}[Fubini's Theorem]
+Let $R$ be a region of an orientable surface and let $h$ be a continuous function on $R \times (a,b)$ where $a,b$ $\in$ $\mathbb{R}$ and $a < b$. Then: 
+\[
+\int_{R \times (a,b)} h(p,t) dp dt = \int_{R} \int_{a}^{b} h(p,t) dt dp = \int_{a}^{b} \int_{R} h(p,t) dp dt.
+\]
+\end{theorem}
+
+This shows us that the integral can be computed using iterated integrals and that the order of integration can be changed.\par
+
+\begin{theorem}[Area Formula for Products]
+Let $\tilde{h} : \bar{R} \times [a,b] \rightarrow \mathbb{R}^{3}$ be a differentiable map. Again $R$ is a region of an orientable surface and $a < b$. Let $f$ be a function on $R \times (a,b)$ such that $f|Jac \tilde{h} |$ is integrable on $R \times (a,b)$. Then the following integral holds:
+\[
+\int_{\mathbb{R}^{3}} n(\tilde{h},f) = \int_{R \times (a,b)} f(p,t)|Jac \tilde{h} |(p,t) dpdt
+\]
+where $n(\tilde{h},f)(x) = \Sigma_{(p,t)\in \tilde{h}^{-1}(x)} f(p,t)$ and $x$ $\in$ $\mathbb{R}^{3}$.
+\end{theorem}
+
+\paragraph{Proof of Heintze-Karcher} 
+This proof is based on Monitel \& Ros' in \cite{montiel}.\newline
+
+First we define a set $A$.
+\[
+A = \{(p,t) \in S \times \mathbb{R} | 0 \leq t \leq \frac{1}{\kappa_{2}(p)} \}
+\]
+
+Here, $\kappa_{2}$ is the larger principle curvature of $S$. Choose $a$ $\in$ $\mathbb{R}$ where $a < max_{p \in S} \frac{1}{\kappa_{2}(p)}$. Therefore $A \subset S \times [0,a]$.
+
+To be able to \textit{control} all the \textbf{normal lines} of our surface, we define the following the differential map $F$:
+
+\begin{equation}
+F: S \times \mathbb{R} \rightarrow \mathbb{R}^{3}
+\end{equation}
+
+Where $F(p,t) = p + tN(p)$ $\forall$ $(p,t)$ $\in$ $S \times \mathbb{R}$. The differential of this map is given by $(dF)_{(p,t)}(v,0) = v + t(dN)_{p}(v)$ where $v$ $\in$ $T_{\alpha}S$. $(dF)_{(p,t)}(0,1) = N(p)$ and $N : S \rightarrow \mathbb{S}^{2} \subset \mathbb{R}^{3}$ is a Gauss map of our surface, $S$. 
+
+Let $q \in \Omega$. If we let $p$ be the point on $S$ that is closest to $q$ we can see that $q = p + tN(p)$ for some $t$ $\in$ $\mathbb{R}$. This is clearly true if $q$ lines on the normal line at $p$. Thus the segment $(p,q]$ does not intersect $S$. Hence $(p,q] \subset \Omega$. And since it can be shown that $0 \leq t \leq \frac{1}{\kappa_{2}(p)}$ then we have that $\Omega \subset F(A)$. This implies the following:
+
+\[ Vol\Omega \leq \int_{\mathbb{R}^{3}} n(F,\chi_{A})
+\] 
+
+Now, if we refer back to the \textbf{Area Formula for Products}, we have that
+
+
+\[
+\int_{\mathbb{R}^{3}} n(F,\chi_{A}) = \int_{S \times (a,b)} \chi_{A}(p,t)|Jac F |(p,t) dpdt
+\]  
+
+Then by using \textbf{Fubini's Theorem} we get the following:
+
+\[Vol\Omega \leq \int_{S} \int_{0}^{a} \chi_{A}(p,t)|Jac F |(p,t) dpdt
+\]
+
+From the definition of the Jacobian we know that $|Jac f| (p) = |(df)_{p} (e_{1}) \wedge (df)_{p} (e_{2}) |$. $N(p)$ is a unit vector \textbf{orthogonal} to our surface at $p \implies N'(p)(e_{i}) = \frac{1}{r}e_{i} = -k_{i}e_{i}$. Consequently, we get the following:
+
+\[
+|Jac F| = |(1+t(-k_{1}))(1 + t(-k_{2}))|
+\]
+
+Since $\chi_{A} = 0$ when $a > \frac{1}{\kappa_{2}(p)}$ we can write the inequality like so:
+
+\[
+Vol \Omega \leq \int_{S} \int_{0}^{\frac{1}{\kappa_{2}(p)} } |(1-t\kappa_{1})(1-t\kappa_{2})| dpdt
+\]
+
+\[
+(1-t\kappa_{1})(1-t\kappa_{2}) = 1 - t(\kappa_{1} + \kappa_{2}) + t^{2}\kappa_{1}\kappa_{2} = 1 - 2tH + t^{2}K
+\]
+
+Our surface has positive mean curvature everywhere and since $\kappa_{2}$ is largest of the principle curvatures, it is clear that $\frac{1}{\kappa_{2}(p)} \leq \frac{1}{H(p)}$. Therefore the following is true:
+
+\[
+Vol \Omega \leq \int_{S} \int_{0}^{\frac{1}{\kappa_{2}(p)} } |1-2tH + t^{2}K| dpdt \leq \int_{S} \int_{0}^{\frac{1}{H(p)}} |1-2tH + t^{2}K| dpdt 
+\]
+
+Now we have to show that 
+\begin{equation}
+1 - 2tH + t^{2} K \leq (1 - tH)^{2}
+\end{equation}
+
+
+$(1-tH)^{2} = 1 - 2tH + t^{2}H^{2}$ thus we only have to show that $H^{2} \geq  K$. So let's assume that $H^{2} < K$
+
+\[
+(\frac{\kappa_{1} + \kappa_{2}}{2})^{2} = \frac{\kappa_{1}^{2} + 2\kappa_{1}\kappa_{2} + \kappa_{2}^{2}}{4} = \frac{1}{4}\kappa_{1}^{2} + \frac{1}{2}\kappa_{1}\kappa_{2} + \frac{1}{4}\kappa_{2}^{2} < \kappa_{1}\kappa_{2}
+\]
+
+So we get that $\frac{1}{4}(\kappa_{1}^{2} + \kappa_{2}^{2}) < \frac{1}{2}\kappa_{1}\kappa_{2}$. But this implies that $\kappa_{1}^{2} + \kappa_{2}^{2} - 2\kappa_{1}\kappa_{2} = (\kappa_{1} - \kappa_{2})^{2} < 0$ which is clearly false. Therefore $1-2tH + t^{2}K \leq (1-tH)^{2}$.
+
+Now we see that
+
+\[
+Vol \Omega \leq \int_{S} \int_{0}^{\frac{1}{H(p)} } (1-tH(p))^{2} dpdt \leq \int_{S} \left[t - t^{2}H + \frac{t^{3}}{3} H^{2} \right]_{0}^{\frac{1}{H(p)}} dp = \frac{1}{3}\int_{S} \frac{1}{H(p)} dp
+\] \hfill $\Box$
+
+\begin{theorem}
+The equality in the Heintze-Karcher Inequality holds if and only if our surface is a sphere.
+\end{theorem}
+
+\paragraph{Proof} Let $S$ be a sphere with radius $r$ and inner domain $\Omega$. $\frac{1}{3}\int_{S} \frac{1}{H(p)}dp = \frac{r}{3}\int_{S} 1 dp = \frac{r}{3} A(S) = Vol\Omega$. 
+
+The other way around, if equality holds then we need equality in (4.1). Thus $H^{2} = K
+ \implies H^{2} - K = 0 \implies \kappa_{i} = H \pm \sqrt{H^{2}-K} = H \implies \kappa_{1} = \kappa_{2} \implies$ our surface is completely made up of umbilical points. The only connected surfaces that are filled completely with umbilical points are planes and spheres. Thus because we have positive mean curvature, we can dismiss the plane. Therefore equality holds if and only if our surface is a sphere. \hfill $\Box$
+
+\section{Wente Torus}
+
+\begin{proposition}[Hopf Conjecture]
+Let $S$ be an \textbf{immersion} of an \textbf{oriented}, closed hypersurface with constant, non-zero, mean curvature in $\mathbb{R}^{3}$. Then $S$ must be a round sphere.
+\end{proposition}
+
+\paragraph{Note:} 
+\begin{itemize}
+\item Informally, we say that a surface is orientable if we can always travel from one point on a surface to another, without being reflected. Thus a 1-fold torus is an example of an orientable surface and a \textbf{M{\"o}bius Strip} is an example of a \textbf{non-orientable} surface. 
+\item Finally, by looking at \textbf{immersed}  surfaces, this means we allow surfaces to have self intersections.
+\end{itemize}
+
+\hspace{-0.7cm}This conjecture bears similarities to the Alexandrov Theorem which we will soon prove. However, this conjecture is \underline{false}. In 1986, Professor Henry C Wente, introduced a counterexample to this conjecture. This proof of the counterexample can be found in \cite{wente}.\par 
+In his counterexample, he showed that there exists a closed and immersed surface with constant mean curvature that is not a sphere. A version of this surface is shown below:
+
+\begin{center}
+\includegraphics[scale=0.55]{Wente3.jpg}
+\captionof{figure}{An image depicting the \textbf{Wente Torus}, copyright of Professor Ivan Sterling.} 
+\end{center}
+
+\hspace{-0.7cm}This immersed surface has constant, non-zero curvature everywhere and provided us with one of the firsts counterexamples to Hopf's Conjecture. We now know that there are a multitude of surfaces that too can be counterexamples.\newline
+
+\hspace{-0.7cm}So why isn't the Wente torus a counterexample for the Alexandrov's Theorem?\newline
+
+\hspace{-0.7cm}The main difference here is that the Wente Torus and all other counter examples of the so-called Hopf Conjecture are not embedded surfaces. This emphasises the significance of the embeddedness condition. If the surface is indeed \textit{embedded}, then the Hopf Conjecture or even the Alexandrov Theorem, can be proven true.
+
+\section{Alexandrov Theorem}
+
+Now we are finally able to prove the Alexandrov Theorem. First, let's remind ourselves of the theorem.
+
+\begin{theorem}[Alexandrov's Theorem]
+If a compact connected surface has constant mean curvature, then it is a sphere.
+\end{theorem}
+
+This proof follows (\cite{montiel}, Chapter 6).
+
+\paragraph{Proof} We know that the sign of the curvatures of a point on a surface depends on the direction in which we have drawn our normal. Therefore we can direct it in such a way so that our CMC surface can now have \underline{positive} mean curvature everywhere and thus we can use the Heintze Karcher Inequality.
+
+\begin{equation}
+Vol\Omega \leq \frac{1}{3}\int_{S} \frac{1}{H(p)}dp = \frac{1}{3H}\int_{S} 1 dp = \frac{1}{3H}A(S)
+\end{equation}
+
+
+Recall the \textbf{First Minkowski Formula}:
+
+\[
+0 = \int_{S} (1+<p,N(p)>H(p))dp = \int_{S} 1 dp + H\int_{S} <p,N(p)> dp = A(S) + H\int_{S} <p,N(p)> dp
+\]
+
+We need to show that equality occurs in (4.2).\par 
+Let's consider the identity vector field $X: \bar{\Omega} \rightarrow \mathbb{R}^{3}$ where $X(x) = x$ $\forall x$ $\in$ $\bar{\Omega}$. By the divergence theorem i.e. theorem 2.4 we get the following:
+
+\[
+\int_{\Omega} div X = \int_{\Omega} 3 = 3 \times Vol\Omega = - \int_{S} <X,N> 
+\]
+
+Therefore, $Vol\Omega = -\frac{1}{3}\int_{S} <p,N(p)>dp$. We substitute this into Minkowski Formula and get:
+
+\[
+A(S) + H (-3 \times Vol\Omega) = 0
+\]
+
+Thus $Vol\Omega = \frac{A(S)}{3H}$. By Remark 4.8, this shows that our surface is a sphere. \hfill $\Box$\newline
+
+The aim of this chapter was to prove that soap bubbles will always become spherical. We know that surface tension of the soap bubble pulls the molecules inside the soap film into the tightest groupings thus minimises area. The bubble will shrink or expand until this has happened. By using Lemma 2.13 and the Alexandrov Theorem we just proved that our soap bubble is a sphere.
+
+\section{Isoperimetric Inequality}
+
+In the last section we showed that our soap bubble must be a sphere. But to do that, we used the fact that soap bubbles are area-minimizing, volume-preserving. Though this can be proven using knowledge from basic chemistry, how do we know that these area-minimizing, volume-preserving surfaces exist mathematically?\par 
+In 1976, mathematician Frederick Almgren proved the existence of area-minimizing, volume-preserving surfaces using geometric measure theory. This can be found in Frank Morgan's book \textit{Geometric Measure Theory: A Beginner's Guide}, (\cite{morgan}, Corollary 5.6). 
+
+The Space Isoperimetric Inequality shows us the relation between volume and area. Thus it is a popular way of showing that soap bubbles are spherical. An example of this is in Hutchings' paper \cite{hutchings} where he considers the \textbf{classical isoperimetric inequality} which regards surfaces that lie in $\mathbb{R}^{n}$. Here we provide the idea of an alternative proof for the Space Isoperimetric Inequalty which uses the Alexandrov Theorem as well as Almgren's theorem on the existence of area minimizing, volume-preserving surfaces.
+
+\begin{theorem}[Space Isoperimetric Inequality]
+Let $S$ be a compact, connected surface. Then $A(S)^{3} \geq 36\pi(Vol\Omega)^{2}$, where $\Omega$ is its inner domain.
+\end{theorem}
+
+\paragraph{Sketch Proof} 
+
+From lemma 2.13, we saw that if a surface is of least surface area given a volume, then our surface has constant mean curvature.\par
+ 
+Let $S$ be a compact and connected surface. Then from the Alexandrov Theorem, we have that if this surface has constant mean curvature everywhere, then it a sphere.\par 
+By Almgren's theorem in \cite{hutchings} we know that an area minimizing, volume-preserving surfaces exist.
+Thus the least surface area way of containing a volume will be a sphere.
+
+Let $\tilde{S}$ be a sphere with radius $r$ and inner domain $\tilde{\Omega}$. Then $A(\tilde{S}) = 4\pi r^{2}$ and $Vol \tilde{\Omega} = \frac{4}{3}\pi r^{3}$. 
+
+\[
+A(\tilde{S})^{3} = 64\pi^{3} r^{6} = 36\pi \times \frac{16}{9}\pi^{2} r^{6} = 36\pi ( Vol\tilde{\Omega})^{2}
+\]
+
+Let $Vol\tilde{\Omega} = Vol\Omega$. So for any compact, connected surface we have that
+
+\[
+A(S) \geq A(\tilde{S}) = 36 \pi (Vol \tilde{\Omega})^{2} = 36 \pi (Vol \Omega)^{2}
+\]
+
+Which proves the Space Isoperimetric Inequality. \hfill $\Box$.\newline
+
+\hspace{-0.66cm}By assuming that our soap bubble follows in the same way as the surfaces defined in mathematics, we know that equality must occur in the Space Isoperimetric Inequality for our soap bubble. Therefore our soap bubble is a sphere and is indeed \textit{perfectly round}.
+
+\chapter{Double Bubble Theorem}
+
+In the last chapter, we showed the shape of the surface of least area given a volume that it encloses. Thus we saw that our soap bubble becomes a sphere. In this chapter, we shall take a look at an almost similar concept. What is the least surface area way of containing and separating \underline{two} volumes of air?
+
+\begin{theorem}[Double Bubble Theorem]
+In $\mathbb{R}^{3}$, the unique surface area minimizing, volume-preserving double bubble that contains the partitioned volumes $V_{1},V_{2}$ inside the regions $R_{1},R_{2}$ is the standard double bubble.
+\end{theorem}
+
+The double bubble is thought to have been studied for centuries. However, the oldest notable mention of the double bubble conjecture was by the physicist C.V Boys in 1986. Just over hundred years later, in 1991, a group of undergraduate mathematics students lead by the undergraduate Joel Foisy, proved the two dimensional version of the double bubble conjecture. Then in 1995, mathematicians Joel Hass and Roger Schafly used a computer algorithm to prove the double bubble conjecture for equal volumes in $\mathbb{R}^{3}$. Finally, in 2002, Michael Hutchings, Frank Morgan, Manuel Ritor\'e and Antonio Ros published a paper with a complete proof of the double bubble conjecture. And thus it is now a theorem.
+
+\section{Existence of Area-Minimizing, Volume-Preserving Surfaces}
+
+Before we start to define our area-minimizing, volume-preserving double bubble, we have to deal with its existence.
+
+\hspace{-0.66cm}In the previous chapter, we mentioned that Almgren proved the existence of area-minimizing, volume-preserving surfaces that contain volumes in $\mathbb{R}^{n}$. Now we look at a similar theorem.
+
+\begin{definition}
+A cluster is a grouping of disjoint regions $R_{1}, R_{2}, ... , R_{m}$ with volumes $V_{1}, V_{2}, ... , V_{m}$.
+\end{definition}
+
+Thus our double bubble can be thought of aas a cluster of regions $R_{1}$ and $R_{2}$ with volumes $V_{1}, V_{2}$ respectively, as well as a \textbf{separating region} $R_{0}$ which separates the other two regions.
+
+\begin{theorem}[Existence of Soap Bubble Clusters]
+In $\mathbb{R}^{n}$, there is an area-minimizing, volume-preserving \textbf{cluster} of bounded regions $R_{i}$ of volume $V_{i}$ given volumes $V_{1}, V_{2}, ... , Vm > 0$.
+\end{theorem}
+
+\paragraph{Note:} The proof for this uses geometric measure theory and is omitted from the project. But it can be found in (\cite{morgan}, Chapter 13). \newline
+
+From theorem 4.3, we know that there exists soap bubble clusters in $\mathbb{R}^{3}$ with regions $R_{1}, R_{2}$ containing volumes $V_{1}$ and $V_{2}$. But what shape is our area-minimizing, volume-preserving double bubble? Is it possible for the area-minimizing, volume-preserving double bubble we are searching for to have an empty chamber like in Figure 4.6? In this chapter we shall take a look at theorems that help define what our area-minimizing, volume-preserving double bubble will look like. And by the end, we will define our standard double bubble.
+
+\begin{center}
+\includegraphics[scale=0.65]{stnd_db.jpg}
+\hspace{4cm}
+\includegraphics[scale=0.65]{nstnd_db2.jpg}
+\vspace{-1cm}
+\begin{multicols}{2}
+\captionof{figure}{A standard double bubble, copyright John M. Sullivan.} 
+\vspace{5cm}
+\captionof{figure}{A non-standard double bubble, copyright John M. Sullivan.}
+\end{multicols}
+\end{center}
+
+\section{Surfaces of Revolution \& Delaunay Surfaces}
+
+\begin{definition}
+If a surface can be generated by rotating a two dimensional curve about an axis, then it is a \textbf{surface of revolution}.
+\end{definition}
+
+\begin{theorem}[Symmetry Theorem]
+Let $B$ the soap bubble cluster of $m$ regions containing $m$ volumes in $\mathbb{R}^{n}$ like in Definition 4.2. Assuming that $m \leq n - 1$ then $B$ is symmetric about some $(m-1)$-dimensional plane $A$.
+\end{theorem}
+
+\begin{corollary}
+The area-minimizing, volume-preserving double bubble is a surface of revolution.
+\end{corollary}
+
+Before we provide a sketch proof of the above corollary, based on Hutching's proof of the \textbf{Symmetry Theorem} in \cite{hutchings}, we will first take a look at a well-known theorem in measure theory. The proof for this is omitted but can be found in \cite{ham} by Arthur Stone and John Tukey. 
+
+\begin{theorem}[Ham Sandwich Theorem]
+The volumes of any $n$ $n$-dimensional solids can be simultaneously bisected by a $(n-1)$-dimensional \textbf{hyperplane}.
+\end{theorem}
+
+\paragraph{Sketch Proof of Corollary 4.5:} Let $B$ be our soap bubble cluster of least area with regions $R_{1}, R_{2}$ containing volumes $V_{1}, V_{2}$. By using the \textbf{Ham Sandwich Theorem} we can produce a one-dimensional plane $H_{1}$, i.e. a line, that bisects $R_{1}$ and $R_{2}$ as well as the separating region $R_{0}$. Here, informally speaking, $R_{1}, R_{2}$ represent the so-called \textit{bread} that \textit{sandwiches} the \textit{ham} in between i.e. $R_{0}$. 
+
+\begin{center}
+\includegraphics[scale=0.85]{db_symmetry.png}
+\end{center}
+
+Thus B is clearly symmetric about a $(2-1$-dimensional plane i.e. $H_{1}$. Thus the \textbf{symmetry theorem} for $m=2$ and $n=3$ can be proven true. 
+Hence we see that our standard double bubble is a surface of revolution. \hfill $\Box$
+
+\begin{definition}
+CMC surfaces of revolution are called \textbf{Delaunay Surfaces}.
+\end{definition}
+
+These Delaunay Surfaces include the sphere and the cylinder.
+The other surfaces can be obtained by rotating a conic such as a parabola, ellipse or hyperbola along a straight line. There are five classifications of Delaunay surfaces in total. In addition to the sphere and the cylinder, the other three can be seen below. To stuy these further, take a look at \cite{del}.
+
+\begin{center}
+\includegraphics[scale=0.5]{catenoid.png}
+\vspace{-1cm}
+\captionof{figure}{If the conic is an parabola, we get a \textbf{catenoid}.}
+\end{center}
+
+\begin{center}
+\includegraphics[scale=0.5]{undaloid.png}
+\hspace{1cm}
+\includegraphics[scale=0.5]{nodoid.png}
+\vspace{-1cm}
+\begin{multicols}{2}
+\captionof{figure}{We obtain an unduloid when our cone is an ellipse.} 
+\vspace{1cm}
+\captionof{figure}{If our cone is a hyperbola, we get a \textbf{nodoid}.}
+\end{multicols}
+\end{center}
+
+Recall that Plateau's Laws for Soap Films were proven true by Jean Taylor in 1976. Jean Taylor showed us that certain surfaces that can be thought of idealisations of soap films and soap bubbles, must have constant mean curvature everywhere. Therefore we can say that our area minimizing, volume-preserving double bubble consists of constant mean curvature surfaces of revolution.
+
+\section{Concavity of the Double Bubble}
+
+In this section, we shall give the proof of  the concavity of our area minimizing, volume-preserving double bubble and show that it does not have any empty chambers. The proof for this and for other theorems in Section 4.3, will follow the method used by Michael Hutchings in \cite{hutchings}. 
+
+\begin{center}
+\includegraphics{Double2.png}
+\captionof{figure}{Two bubbles joined but with an empty chamber between them.} 
+\end{center}
+
+\begin{definition}
+An empty chamber is an extra region to our minimal soap bubble cluster that does not contribute to any volumes that the cluster encloses.
+\end{definition}
+
+\begin{definition}
+A function $f(x)$ is said to be \textbf{convex} on an interval $I$ if $\forall$ $x_{1},x_{2}$ $\in$ $I$ and $\forall$ $\lambda$ where $0 < \lambda < 1$, $f(\lambda x_{1} + (1-\lambda)x_{2}) \leq \lambda f(x_{1}) + (1-\lambda)f(x_{2})$
+\end{definition}
+
+\begin{remark}
+A convex set bears resemblance to the notion of \textbf{path-connectedness}. In fact, a convex set in a \textbf{topological vector space} is said to be path-connected.
+\end{remark}
+
+\begin{definition}
+The set of points lying on or above the graph of a function is the \textbf{epigraph}.
+\end{definition}
+
+\begin{definition}
+The set of points lying on or below a function's graph is the \textbf{hypograph}.
+\end{definition}
+
+\begin{center}
+\includegraphics[scale=0.75]{convex.png}
+\hspace{4cm}
+\includegraphics[scale=0.75]{nonconvex.png}
+\vspace{-1cm}
+\begin{multicols}{2}
+\captionof{figure}{A convex set.} 
+\vspace{1cm}
+\captionof{figure}{A non-convex set.}
+\end{multicols}
+\end{center}
+
+Thus a set $S$ is convex, if for any two points in $S$, the line joining them is also is $S$.
+
+\begin{remark}
+The epigraph of a convex function is a convex set.
+\end{remark}
+
+\begin{definition}
+A function $f(x)$ is \textbf{concave} at an interval $I$, if its hypograph is convex.
+\end{definition}
+
+\begin{theorem}[Concavity Theorem]
+Let $A(V_{1},V_{2})$ denote the least area required to enclose and separate volumes $V_{1}, V_{2}$ $\in$ $\mathbb{R}^{3}$. $A(V_{1}, V_{2})$ is strictly concave on every line in $[0, \infty) \times [0,\infty)$. In other words, if $v = (V_{1},V_{2}), w = (W_{1},W_{2})$ $\in$ $[0,\infty) \times [0,\infty)$ are two pairs of volumes and if $0 < t < 1$, then $A(tv + (1-t)w) > tA(v) + (1-t)A(w)$
+\end{theorem}
+
+The proof of this theorem can be found in \cite{hutchings}.
+
+\begin{corollary}
+$A(V_{1},V_{2})$ is strictly increasing in each $V_{i}$.
+\end{corollary}
+
+\paragraph{Proof:} Let $V_{2} < V_{2}'$ and assume the following:
+
+\begin{equation}
+A(V_{1},V_{2}) \geq A(V_{1},V_{2}')
+\end{equation}
+
+Then because we showed that $(A(x))$ is concave, it follows that $ A(V_{1},V_{2}') \geq A(V_{1},V_{3})$ $\forall$ $V_{3} > V_{2}'$. From the results of Chapter 3 and the Space Isoperimetric inequality, we saw that the least surface area of containing a volume $V_{3}$ is a sphere with area $A(V_{3})$. Thus it is clear that $A(V_{1},V_{3}) \geq A(V_{3})$. But if you let $V_{3} \rightarrow \infty$ then $A(V_{3}) \rightarrow \infty$ and hence $A(V_{1},V_{2}')$ but we know that there exists a finite double bubble with volumes $V_{1},V_{2}'$ thus this is a contradiction. Therefore:
+\[
+V_{2} < V_{2}' \implies A(V_{1},V_{2}) \geq A(V_{1},V_{2}')
+\] \hfill $\Box$
+
+\begin{theorem}[Empty Chambers Theorem]
+Area-minimizing, volume-preserving double bubbles in $\mathbb{R}^{3}$ never have empty chambers.
+\end{theorem}
+
+\paragraph{Proof} We already noted that double bubbles involve two clusters say $R_{1}$ and $R_{2}$ containing volumes $V_{1}, V_{2}$. So if our double bubble had an empty chamber, then without of loss generality, let this empty chamber be part of $R_{1}$. But now that we have included the empty chamber in $R_{1}$, the volume of $V_{1}$ has increased but the area of $R_{1}$ remains the same. This contradicts the strictly increasing condition of $A(V)$. Therefore our area minimizing, volume-preserving double bubble cannot have empty chambers. \hfill $\Box$\newline
+
+\section{Separating Volumes}
+
+In this section we shall be focusing on the part of the double bubble that separates the two volumes/regions. \newline
+
+Let $\mathbb{S}_{1}^{2}$ and $\mathbb{S}_{2}^{2}$ be spheres in $\mathbb{R}^{3}$ containing volumes $V_{1}$ and $V_{2}$ respectively. We know from the results of the last chapter with the Space Isoperimetric inequality, that $\mathbb{S}_{1}^{2}$ and $\mathbb{S}_{2}^{2}$ are the least surface area ways of containing the volumes, $V_{1}$ and $V_{2}$. Therefore, it is almost natural to consider the possibility that the least surface area of containing both volumes $V_{1}$ and $V_{2}$ is with a transformation and \textit{merging} of $\mathbb{S}_{1}^{2}$ and $\mathbb{S}_{2}^{2}$. 
+
+\begin{center}
+\includegraphics[scale=0.75]{Sphere-Sphere.png}
+\captionof{figure}{Intersection of spheres, one centred at the origin and the other at $(x_{0},0,0)$.} 
+\end{center}
+
+\hspace{-0.66cm}For inspriation to start forming the standard double bubble we will look to Frank Morgan's method in proving the double bubble theorem in (\cite{morgan4} Proposition 14.1). We introduce a unit sphere and another sphere, intersecting at the origin just like in Figure 4.9.\newline
+
+Let the equations of our spheres be the following:
+
+\begin{equation}
+x^{2}+y^{2}+z^{2} = r_{1}^{2}
+\end{equation}
+\vspace{-1cm}
+\begin{equation}
+(x-x_{0})^{2}+y^{2}+z^{2} = r_{2}^{2}
+\end{equation}
+
+Combining (5.1) and (5.2) we get:
+
+\[
+y^{2}+z^{2} = r_{1}^{2} - x^{2} = r_{2}^{2} - (x-x_{0})^{2} \implies r_{1}^{2} - r_{2}^{2} = x^{2} - (x-x_{0})^{2} = 2xx_{0}-x_{0}^{2}
+\]
+
+Therefore
+
+\begin{equation}
+x = \frac{r_{1}^{2}-r_{2}^{2} + x_{0}^{2}}{2x_{0}}
+\end{equation}
+
+Then we substitute this back into (5.1):
+
+\begin{equation}
+y^{2}+z^{2}=r_{1}^{2} - (\frac{r_{1}^{2}-r_{2}^{2} + x_{0}^{2}}{2x_{0}})^{2} = \frac{4x_{0}^{2}r_{1}^{2} - (r_{1}^{2} - r_{2}^{2} + x_{0}^{2})^{2}}{4x_{0}^{2}}
+\end{equation}
+\vspace{1cm}
+This shows us that the intersection of these spheres is at a circle in the y-z plane.\newline 
+ 
+\hspace{-0.66cm}The mathematician Rafael L\'opez in \cite{lopez} makes the following remark:
+
+\begin{corollary}
+The only compact, constant mean curvature surfaces of revolution that span a circle are flat disks or spherical caps.
+\end{corollary}
+
+\hspace{-0.66cm}This corollary follows from the Delaunay Classifications of CMC surfaces and our choice of conic, a circle.
+
+\hspace{-0.66cm}Therefore we have learnt that if our area minimizing, volume-preserving double bubble consists of partial spheres, then the part of the double bubble that separates the two is a either a spherical cap or a disc. 
+
+Now we recall from Plateau's third law that soap films always meet in threes at an angle of $120^{\circ}$. The law is also true for area-minimizing, volume-preserving double bubbles. In two dimensions, it is followed by the \textbf{Regularity Theorem} in \cite{2d}.
+
+\begin{center}
+\includegraphics[scale=0.9]{db_2d.png}
+\captionof{figure}{This is a perimeter-minimizing, area-preserving double bubble in $\mathbb{R}^{2}$}
+\end{center}
+
+\begin{theorem}[Regularity Theorem in $\mathbb{R}^{2}$]
+A perimeter-minimizing, area-preserving double bubble in $\mathbb{R}^{2}$ consists of arcs meeting in threes at angles of $120^{\circ}$.
+\end{theorem}
+
+This can be easily seen in the above figure. Where the line segment separating $R_{1}$ and $R_{2}$ is also defined by the term  \textit{arc}.\newline 
+
+\hspace{-0.66cm}Thanks to Taylor in \cite{taylor}, this theorem can be extended to $\mathbb{R}^{3}$ for area-minimizing, volume-preserving double bubbles. The figure below beautifully demonstrates the angles and shows their relation to the curvature of the regions $R_{1}, R_{2}$ and the separating region $R_{0}$.
+
+\begin{center}
+\includegraphics[scale=0.95]{db-angles.png}
+\captionof{figure}{Picture by Frank Morgan in \cite{morgan} depicting a double bubble similar to Figure 4.9, alongside their angles.} 
+\end{center}
+
+\begin{theorem}
+If the regions $R_{1}, R_{2}$ of our area minimizing, volume-preserving double bubble contain equal volumes, then their separation is a flat disc.
+\end{theorem}
+
+\paragraph{Proof:} 
+From the image in Figure 4.11, we shall take a look at two triangles. Note that $H_{1}$ represents the curvature of the larger region of our double bubble, $H_{2}$ the smaller region and $H_{0}$ the separating region.
+
+By looking at the \textbf{sine rule} we get the following formulas:
+
+\begin{equation}
+H_{1}sin(\alpha) = H_{2}sin(120-\alpha)
+\end{equation}
+\vspace{-1cm}
+\begin{equation}
+H_{0}sin(\alpha) = H_{2}sin(\alpha-60)
+\end{equation}
+
+By noting that $sin(\alpha - 60) + sin(120 - \alpha) = sin(\alpha)$ and assuming that $sin(\alpha) \neq 0$ we can see that:
+
+\[
+H_{1}sin\alpha + H_{0}sin\alpha = H_{2}sin\alpha \implies H_{1} + H_{0} = H_{2}
+\]
+
+Therefore the curvature of the separating region $H_{0} = H_{2} - H_{1}$. This implies that, if $V_{1} = V_{2}$ then the regions $R_{1}$ and $R_{2}$ will be identical, thus having the same curvature. Hence, $H_{0} = 0$ which implies that we will get a flat disc. \hfill $\Box$
+
+\section{Double Bubble Theorem}
+
+The full proof of the double bubble theorem relies on mathematics beyond the scope of this project, in particular with its usage of geometric measure theory. For this reason, here we shall simply provide an idea of the proof. For a final proof, see \cite{db}.
+
+\begin{theorem}[Double Bubble Theorem]
+In $\mathbb{R}^{3}$, the unique surface area minimizing, volume-preserving double bubble that contains the partitioned volumes $v_{1},v_{2}$ inside the regions $R_{1},R_{2}$ is the standard double bubble.
+\end{theorem}
+
+\paragraph{Sketch Proof}
+\begin{itemize}
+\item From Theorem 4.3 we saw that there exists an area-minimizing, volume-preserving double bubble consisting of regions $R_{1}, R_{2}$ containing volumes $V_{1}, V_{2}$ respectively.
+\item By Corollary 4.6, we saw that our area-minimizing, volume-preserving double bubble was a surface of revolution.
+\item From Hutchings' work in \cite{hutchings} we also saw that our area-minimizing, volume-preserving double bubble is concave and it does not have any empty chambers. 
+\item Using the \textbf{Concavity Theorem}, Hutchings also dealt with the connectedness of the area-minimizing, volume-preserving double bubble. See (\cite{hutchings} or \cite{morgan}, Chapter 14).
+\item The connectedness of the area-minimizing, volume-preserving double bubble easily dismisses non-standard double bubbles such as the one shown in Figure 4.2.
+\item By the definition of a cluster, we know that there must exist a separating region $R_{0}$ that separates $R_{1}$ and $R_{2}$.
+\item Taylor (see \cite{taylor}) showed us that $R_{0}, R_{1}$ and $R_{2}$ meet in threes at angles of $120^{\circ}$.
+\item And finally we saw that $R_{0}$ is a spherical cap if $V_{1} \neq V_{2}$ and a flat disc if $V_{1} = V_{2}$.
+\end{itemize}
+
+\hspace{-0.66cm}What we have defined parallels the definition of the standard double bubble. Thus we have seen that the area-minimizing, volume-preserving double bubble in $\mathbb{R}^{3}$ is the standard double bubble. \hfill $\Box$.
+
+
+\chapter{Conclusion}
+
+Area-minimizing, volume-preserving surfaces provide us with beautiful geometries but also bear many uses in mathematics and other sciences. For example, engineers can use the results of the double bubble theorem to create a container that minimizes area whilst holding two different volumes that cannot be mixed. This can save space and reduce costs.\par 
+\hspace{-0.66cm}Another example can be found in architecture. For instance, the Olympiapark in Munich was inspired by minimal surfaces. These buildings not only represent the beauty of minimal surfaces but are also accompanied by other great advantages. Water will not stay on a roof of a minimal surface building due to the absence of umbilical points. Other interesting properties of architecture inspired by minimal surfaces can be found in \cite{architecture}.
+
+\begin{center}
+\includegraphics[scale=0.75]{db_spherical.png}
+\captionof{figure}{A standard double  bubble with spherical cap $R_{0}$ as the separating region.} 
+\end{center}
+
+\begin{center}
+\includegraphics[scale=0.85]{db_equal2.png}
+\captionof{figure}{A standard double bubble with equal volumes and a flat disc separating region $R_{0}$.} 
+\end{center}
+
+\hspace{-0.66cm}We have learnt that Area-minimizing, volume-preserving surfaces have constant mean curvature everywhere. This fact allowed us to outline proofs of the Alexandrov Theorema and the Space Isoperimetric Inequality which lead us to following conclusion. The embedded surface that uses the least area to enclose a given volume is the sphere. And finally, we showed that the least surface area way of containing and separating two volumes is with the standard double bubble, as shown in Figure 5.1 and Figure 5.2. In fact, by Theorem 4.3, we know that an area minimizing, volume-preserving triple bubble, quadruple bubble and so on must exist. Some of these have already been proven but there are still more bubble clusters to study and that is truly exciting.
+
+
+
+\medskip
+ 
+\begin{thebibliography}{9}
+
+\bibitem{verifold}
+Almgren, Frederick J. Plateau's problem: an invitation to varifold geometry. Vol. 13. American Mathematical Soc., 1966.
+
+\bibitem{taylor}
+Taylor, Jean E. "The structure of singularities in soap-bubble-like and soap-film-like minimal surfaces." Annals of Mathematics (1976): 489-539.
+
+\bibitem{curve}
+Lisle, Richard J. "Dupin's indicatrix: a tool for quantifying periclinal folds on maps." Geological magazine 140.06 (2003): 721-726.
+
+\bibitem{natural}
+Hildebrandt, Stefan, and Anthony Tromba. The parsimonious universe: shape and form in the natural world. Springer Science \& Business Media, 1996.
+
+\bibitem{montiel}
+Montiel, Sebastián, and Antonio Ros. Curves and surfaces. Ed. Donald G. Babbitt. Providence: American mathematical society, 2005.
+
+\bibitem{einstein}
+Wolke, Robert L. What Einstein didn't know: scientific answers to everyday questions. Courier Corporation, 2014.
+
+\bibitem{spivak}
+Spivak, Michael. Calculus on manifolds. Vol. 1. New York: WA Benjamin, 1965.
+
+\bibitem{iso}
+Osserman, Robert. "The isoperimetric inequality." Bulletin of the American Mathematical Society 84.6 (1978): 1182-1238.
+
+\bibitem{soap}
+Criado, Carlos, and Nieves Alamo. "Solving the brachistochrone and other variational problems with soap films." American Journal of Physics 78.12 (2010): 1400-1405.
+
+\bibitem{wente}
+Wente, Henry. "Counterexample to a conjecture of H. Hopf." Pacific Journal of Mathematics 121.1 (1986): 193-243.
+
+\bibitem{morgan}
+Morgan, Frank. Geometric measure theory: a beginner's guide (Third Edition). Academic press, 2000.
+
+\bibitem{morgan4}
+Morgan, Frank. Geometric measure theory: a beginner's guide (Fourth Edition). Academic press, 2008.
+
+\bibitem{lopez}
+L\'opez, Rafael. Constant mean curvature surfaces with boundary. Springer Science \& Business Media, 2013.
+
+\bibitem{ham}
+Stone, Arthur H., and John W. Tukey. "Generalized “sandwich” theorems." Duke Mathematical Journal 9.2 (1942): 356-359.
+
+\bibitem{hutchings}
+Hutchings, Michael. "The structure of area-minimizing double bubbles." Journal of Geometric Analysis 7.2 (1997): 285-304.
+
+\bibitem{del}
+Bendito, Enrique, Mark J. Bowick, and Agustin Medina. "Delaunay Surfaces." arXiv preprint arXiv:1305.5681 (2013).
+
+\bibitem{2d}
+Foisy, Joel, et al. "The standard double soap bubble in R2 uniquely minimizes perimeter." Pacific journal of mathematics 159.1 (1993): 47-59.
+
+\bibitem{db}
+Hutchings, Michael, et al. "Proof of the double bubble conjecture." Annals of Mathematics (2002): 459-489.
+
+\bibitem{architecture}
+Mourrain, Bernard, Scott Schaefer, and Guoliang Xu, eds. Advances in Geometric Modeling and Processing: 6th International Conference, GMP 2010, Castro Urdiales, Spain, June 16-18, 2010, Proceedings. Vol. 6130. Springer, 2010.
+
+\end{thebibliography}
+
+\end{document}
